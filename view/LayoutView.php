@@ -1,5 +1,19 @@
 <?php
+// includes config file.
+include_once('init.php');
 
+if($database->getConnection()) {
+  echo 'true' . '<br>';
+
+		// $query = "SELECT * FROM users WHERE id=2 ";
+
+    // $result = $database->query($query);
+    // $user_found = mysqli_fetch_array($result);
+
+    // echo $user_found['username'];
+    
+
+}
 
 class LayoutView {
   
@@ -17,7 +31,7 @@ class LayoutView {
           <div class="container">
               ' . $v->response() . '
               
-              ' . $dtv->show() . '
+              ' . $dtv->time() . '
           </div>
          </body>
       </html>

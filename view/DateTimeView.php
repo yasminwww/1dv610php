@@ -3,18 +3,18 @@
 class DateTimeView {
 
 
-	public function show() {
+	public function time() {
 
 		$timeString = date_default_timezone_set('Europe/Stockholm');
 
-		$info = getdate();
+		$info = getDate();
 		$date = $info['mday'];
 		$month = $info['mon'];
 		$year = $info['year'];
 		$hour = $info['hours'];
 		$min = $info['minutes'];
 
-		return '<p>' . $current_date = "$date/$month/$year | $hour:$min" . '</p>';
+		return '<p>' . $current_date = "$year/$month/$date | $hour:$min" . '</p>';
 
 	}
 }

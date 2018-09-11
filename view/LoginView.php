@@ -1,5 +1,10 @@
 <?php
 
+// require_once('database.php');
+// LoginView->$login;
+
+// self pekar på classen och används tillsammans med statiska konstanter, this pekar på objekt.
+// :: dubbelkolon används enbart med statiska egenskaper(fält,medlemmar). kodkonvention.
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -9,6 +14,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+
 
 	
 
@@ -24,6 +30,7 @@ class LoginView {
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
+		$this->getRequestUserName();
 		return $response;
 	}
 
@@ -71,6 +78,26 @@ class LoginView {
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
+
+		$username = $_POST[self::$name];
+		$password = $_POST[self::$password];
+
+		if($username && $password) {
+			echo ' Welcome ' . $username; 
+		}else {
+			echo 'You left blank fiels(s).';
+		}
+		// $query = "SELECT * FROM users WHERE id=1 ";
+		// $query .= "VALUES ('$username', '$password')";
+
+		// $result = $database->query($query);
+	
+		// if(!$result) {
+		// 	die('query failed');
+		// } else {
+		// 	echo 'query success';
+		// }
 	}
+
 	
 }
