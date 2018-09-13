@@ -1,6 +1,8 @@
 <?php
 
 // require_once('database.php');
+// require_once('init.php');
+
 // LoginView->$login;
 
 // self pekar på classen och används tillsammans med statiska konstanter, this pekar på objekt.

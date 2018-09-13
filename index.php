@@ -1,19 +1,49 @@
 <?php
 
-//INCLUDE THE FILES NEEDED...
-require_once('view/LoginView.php');
-require_once('view/DateTimeView.php');
-require_once('view/LayoutView.php');
-
-//MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
-
-//CREATE OBJECTS OF THE VIEWS
-$v = new LoginView();
-$dtv = new DateTimeView();
-$lv = new LayoutView();
+require_once('controller.php');
+require_once('model.php');
+require_once('view.php');
+require_once('init.php');
 
 
-$lv->render(false, $v, $dtv);
 
+$controller = new AppController();
+$model = new User();
+
+@$submit = $_REQUEST['submit'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// switch($submit) {
+//     case 'save': 
+//     $username = $_POST['username'];
+//     $password = $_POST['password'];
+    
+//     if($cotroller->login($username, $password)) {
+//         echo "thank you " . $username;
+//     }
+//     break;
+// }

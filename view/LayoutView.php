@@ -1,6 +1,6 @@
 <?php
 // includes config file.
-include_once('init.php');
+require_once('init.php');
 
 if($database->getConnection()) {
   echo 'true' . '<br>';
