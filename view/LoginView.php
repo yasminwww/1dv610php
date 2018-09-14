@@ -9,9 +9,11 @@
 // :: dubbelkolon används enbart med statiska egenskaper(fält,medlemmar). kodkonvention.
 class LoginView {
 	private static $login = 'LoginView::Login';
+	private static $signup = 'LoginView::Signup';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
+	private static $password2 = 'LoginView::Password2';
 	private static $cookieName = 'LoginView::CookieName';
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
@@ -124,11 +126,22 @@ class LoginView {
         
         return '
             <h2>SignUp</h2>
-                <form method="POST">
-                    <input type="text" name="username">
-                    <input type="password" name="password">
-                    <input type="password" name="password2">
-                    <input type="submit" value="SignUp" name="submit">
+				<form method="POST">
+					<fieldset>
+						<legend>Login - enter Username and password</legend>
+						<p id="' . self::$messageId . '">' . $message . '</p>
+						
+						<label for="' . self::$name . '">Username :</label>
+						<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+
+						<label for="' . self::$password . '">Password :</label>
+						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+
+						<label for="' . self::$password2 . '">Password :</label>
+						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
+
+						<input type="submit" name="' . self::$signup . '" value="signup" />
+					</fieldset>
                 </form>';
         }
 	
