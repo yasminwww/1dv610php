@@ -7,10 +7,10 @@ require_once('init.php');
 
 
 
-$controller = new AppController();
-$model = new User();
+// $controller = new AppController();
+// $model = new User();
 
-@$submit = $_REQUEST['submit'];
+// @$submit = $_REQUEST['submit'];
 
 
 
