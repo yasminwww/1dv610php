@@ -1,12 +1,8 @@
 <?php
-//
+
 include_once('init.php');
 
 
-// $db = mysqli_connect("localhost", "root", "", "users");
-
-
-//
 
 if(isset($_POST['submit'])) {
 
@@ -32,12 +28,8 @@ if(isset($_POST['submit'])) {
  
         } else {
             $_SESSION['message'] = "Password did not match";
-        }
-
-
-    } else {
-        echo 'No blank fields!';
     }
+
 }
 
 

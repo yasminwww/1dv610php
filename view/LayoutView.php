@@ -11,8 +11,7 @@ if($database->getConnection()) {
     // $user_found = mysqli_fetch_array($result);
 
     // echo $user_found['username'];
-    
-
+  
 }
 
 class LayoutView {
@@ -43,7 +42,17 @@ class LayoutView {
       return '<h2>Logged in</h2>';
     }
     else {
-      return '<h2>Not logged in</h2>';
+      // Visa/länka till en knapp
+
+      return '<h2>Not logged in</h2>
+              <br>
+              <form method="POST">
+                <input type="submit" value="SignUp" name="signup">
+              </form>';
     }
   }
+
+  
 }
+
+

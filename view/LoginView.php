@@ -29,6 +29,8 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
+
+		//Lägger till en regView
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
@@ -80,15 +82,16 @@ class LoginView {
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
+		return $_POST[self::$name];
 
-		$username = $_POST[self::$name];
-		$password = $_POST[self::$password];
 
-		if($username && $password) {
-			echo ' Welcome ' . $username; 
-		}else {
-			echo 'You left blank fiels(s).';
-		}
+		// $password = $_POST[self::$password];
+
+		// if($username && $password) {
+		// 	echo ' Welcome ' . $username; 
+		// }else {
+		// 	echo 'You left blank fiels(s).';
+		// }
 		// $query = "SELECT * FROM users WHERE id=1 ";
 		// $query .= "VALUES ('$username', '$password')";
 
@@ -99,7 +102,18 @@ class LoginView {
 		// } else {
 		// 	echo 'query success';
 		// }
+	
 	}
 
+	function handelingError() {
+		if($_POST[self::$name] && $_POST[self::$password]) {
+
+			//Checka med databasen att allt är ok, och validera tecken
+			
+			return '<h3>Success</h3>';
+		} else {
+			return '<h3>Please fill in all fields.</h3>';
+		}
+	}
 	
 }

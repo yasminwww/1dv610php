@@ -7,14 +7,10 @@ class User {
     private $username = null;
     private $password = null;
 
-//     public function __contruct($username, $passsword) {
-//         $this->username = $username;
-//         $this->password = $password;
-
-// }
-    public function setUsername($username) {
+    public function setUsername($username, $password) {
 
         $this->username = $username;
+        $this->password = $username;
     }
     
     public function setPassword($password) {
@@ -27,5 +23,4 @@ class User {
         return $this->username;
 }
 
- 
 }
