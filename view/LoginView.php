@@ -30,11 +30,15 @@ class LoginView {
 	public function response() {
 		$message = '';
 
-		//Lägger till en regView
-		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
-		$this->getRequestUserName();
+		//START: Lägger till en regView
+		if(isset($_POST['signup'])){
+
+			$response = $this->registrationView();
+		}else {
+			$response = $this->generateLoginFormHTML($message);
+			//$response .= $this->generateLogoutButtonHTML($message);
+			$this->getRequestUserName();
+		}
 		return $response;
 	}
 
@@ -115,5 +119,17 @@ class LoginView {
 			return '<h3>Please fill in all fields.</h3>';
 		}
 	}
+
+	function registrationView() {
+        
+        return '
+            <h2>SignUp</h2>
+                <form method="POST">
+                    <input type="text" name="username">
+                    <input type="password" name="password">
+                    <input type="password" name="password2">
+                    <input type="submit" value="SignUp" name="submit">
+                </form>';
+        }
 	
 }

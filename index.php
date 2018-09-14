@@ -13,7 +13,6 @@ ini_set('display_errors', 'On');
 $v = new LoginView();
 $dtv = new DateTimeView();
 $lv = new LayoutView();
-$rv = new RegisterView();
 
 
 $lv->render(false, $v, $dtv);
