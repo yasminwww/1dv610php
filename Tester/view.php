@@ -31,17 +31,3 @@ if(isset($_POST['submit'])) {
     }
 
 }
-
-
-?>
-
-<form action="view.php" method="POST">
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="password" name="password2">
-
-    <input type="submit" value="submit" name="submit">
-    </form>
-
-</body>
-</html>

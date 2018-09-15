@@ -1,15 +1,14 @@
 <?php
 
-// require_once('database.php');
-// require_once('init.php');
-
-// LoginView->$login;
 
 // self pekar på classen och används tillsammans med statiska konstanter, this pekar på objekt.
 // :: dubbelkolon används enbart med statiska egenskaper(fält,medlemmar). kodkonvention.
 class LoginView {
+
 	private static $login = 'LoginView::Login';
+	private static $submitSignup = 'LoginView::SubmitSignup';
 	private static $signup = 'LoginView::Signup';
+
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
@@ -31,12 +30,10 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
-
 		//START: Lägger till en regView
-		if(isset($_POST['signup'])){
-
-			$response = $this->registrationView();
-		}else {
+		if(isset($_POST[self::$signup])){
+			$response = $this->registrationView($message);
+		} else {
 			$response = $this->generateLoginFormHTML($message);
 			//$response .= $this->generateLogoutButtonHTML($message);
 			$this->getRequestUserName();
@@ -85,50 +82,30 @@ class LoginView {
 		';
 	}
 	
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-		//RETURN REQUEST VARIABLE: USERNAME
-		return $_POST[self::$name];
-
-
-		// $password = $_POST[self::$password];
-
-		// if($username && $password) {
-		// 	echo ' Welcome ' . $username; 
-		// }else {
-		// 	echo 'You left blank fiels(s).';
-		// }
-		// $query = "SELECT * FROM users WHERE id=1 ";
-		// $query .= "VALUES ('$username', '$password')";
-
-		// $result = $database->query($query);
-	
-		// if(!$result) {
-		// 	die('query failed');
-		// } else {
-		// 	echo 'query success';
-		// }
-	
-	}
-
-	function handelingError() {
-		if($_POST[self::$name] && $_POST[self::$password]) {
-
-			//Checka med databasen att allt är ok, och validera tecken
-			
-			return '<h3>Success</h3>';
+	 //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+	public function getRequestUserName() {
+		if(isset($_POST[self::$name])) {
+			return $_POST[self::$name];
 		} else {
-			return '<h3>Please fill in all fields.</h3>';
+			return 'Please enter a username.';
 		}
+		//RETURN REQUEST VARIABLE: USERNAME
 	}
 
-	function registrationView() {
+	public function getRequestPassword() {
+		if(isset($_POST[self::$password])) {
+			return $_POST[self::$password];
+		}
+		return 'Please enter a password.';
+		//RETURN REQUEST VARIABLE: USERNAME
+	}
+
+	function registrationView($message) {
         
         return '
-            <h2>SignUp</h2>
 				<form method="POST">
 					<fieldset>
-						<legend>Login - enter Username and password</legend>
+						<legend>Sign Up - enter Username and password</legend>
 						<p id="' . self::$messageId . '">' . $message . '</p>
 						
 						<label for="' . self::$name . '">Username :</label>
@@ -137,12 +114,11 @@ class LoginView {
 						<label for="' . self::$password . '">Password :</label>
 						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 
-						<label for="' . self::$password2 . '">Password :</label>
+						<label for="' . self::$password2 . '">Repeat Password :</label>
 						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
 
 						<input type="submit" name="' . self::$signup . '" value="signup" />
 					</fieldset>
                 </form>';
-        }
-	
+    }
 }

@@ -28,7 +28,9 @@ class Database {
     // $sql = SQL Sträng med query instruktion.
     public function query($sql) {
         
-        $result = mysqli_query($this->connection, $sql);
+        // $result = mysqli_query($this->connection, $sql);
+        $result =  mysqli_escape_string($this->connection, $sql);
+        
         if(!$result) {
             die('Query failed.');
         }
@@ -36,14 +38,11 @@ class Database {
 
     }
 
-    public function escapeStringForMySQLQuery($string) {
+    // public function escapeStringForMySQLQuery($string) {
 
-      $escaped_string = mysqli_escape_string($this->connection, $string);
-      return $escaped_string;
-    }
+    //   $escaped_string = mysqli_escape_string($this->connection, $string);
+    //   return $escaped_string;
+    // }
 }
-
-// Initialize.
-$database = new Database();
 
 ?>
