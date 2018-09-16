@@ -2,15 +2,17 @@
 // require_once('init.php');
 
 
-class User extends Database{
+class User{
     
     // Undgå error vid start.
-    private $username;
-	private $password;
-	private $database;
+    private $username = null;
+	private $password = null;
+	// private $database;
 
-	// public function __contruct($database) {
-	// 	$this->database = new Database();
+	// public function __construct($username, $password) {
+	// 	$this->username = $username;
+	// 	$this->password = $password;
+
 	// }
 
     public function setUsername($username) {
@@ -27,11 +29,12 @@ class User extends Database{
 	// public function checkForDublicatedUsernames() {
 	// }
 
-	public function saveUser() {
-		
-			$query = "INSERT INTO users(username, password) VALUES ('$this->username', '$this->password')";
+	public function saveUser($database) {
 
-			$result = $this->database->guery($guery);
+			$query = "INSERT INTO users(username, password) VALUES ('$this->username', '$this->password')";
+			echo $query;
+			// var_dump($database);
+			$result = $database->query($query);
 
 	}
 

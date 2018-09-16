@@ -15,7 +15,7 @@ class Database {
     public function getConnection () {
         return $this->connection;
     }
-
+    
 
     public function open_db_connection() {
 
@@ -28,8 +28,8 @@ class Database {
     // $sql = SQL Sträng med query instruktion.
     public function query($sql) {
         
-        // $result = mysqli_query($this->connection, $sql);
-        $result =  mysqli_escape_string($this->connection, $sql);
+        $result = mysqli_query($this->connection, $sql);
+        // $result =  mysqli_escape_string($this->connection, $sql);
         
         if(!$result) {
             die('Query failed.');

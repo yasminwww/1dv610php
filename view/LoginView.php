@@ -1,21 +1,6 @@
 <?php
 
-
-// self pekar på classen och används tillsammans med statiska konstanter, this pekar på objekt.
-// :: dubbelkolon används enbart med statiska egenskaper(fält,medlemmar). kodkonvention.
 class LoginView {
-
-	private static $login = 'LoginView::Login';
-	private static $submitSignup = 'LoginView::SubmitSignup';
-	private static $signup = 'LoginView::SignupButton';
-	private static $logout = 'LoginView::Logout';
-	private static $name = 'LoginView::UserName';
-	private static $password = 'LoginView::Password';
-	private static $password2 = 'LoginView::Password2';
-	private static $cookieName = 'LoginView::CookieName';
-	private static $cookiePassword = 'LoginView::CookiePassword';
-	private static $keep = 'LoginView::KeepMeLoggedIn';
-	private static $messageId = 'LoginView::Message';
 
 
 	/**
@@ -47,7 +32,7 @@ class LoginView {
 	private function generateLogoutButtonHTML($message) {
 		return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
+				<p id="Message">' . $message .'</p>
 				<input type="submit" name="Logout" value="logout"/>
 			</form>
 		';
@@ -60,12 +45,12 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 		return '
-			<form method="post" > 
-			<input type="submit" value="SignUp" name="SignupButton">
+		<form method="post" > 
+		<input type="submit" value="SignUp" name="SignupButton">
 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="Message">' . $message . '</p>
 					
 					<label for="UserName">Username :</label>
 					<input type="text" id="UserName" name="UserName" value="" />
@@ -110,7 +95,7 @@ class LoginView {
 				<form method="POST">
 					<fieldset>
 						<legend>Sign Up - enter Username and password</legend>
-						<p id="' . self::$messageId . '">' . $message . '</p>
+						<p id="Message">' . $message . '</p>
 						
 						<label for="UserName">Username :</label>
 						<input type="text" id="UserName" name="UserName" value="" />

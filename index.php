@@ -22,15 +22,16 @@ $lv = new LayoutView();
 $lv->render(false, $v, $dtv);
 
 
+$database = new Database();
 
 //CREATE OBJECTS OF CONTROLLERS
-$authC = new authController($v);
+$authC = new AuthController($v, $database);
 echo $authC->register();
 
 //CREATE OBJECTS OF DATABASE
-$database = new Database();
-$userModel = new User();
-$user = $v->getRequestUserName();
+//$userModel = new User();
+//$userModel->saveUser($database);
+// $user = $v->getRequestUserName();
 // $userModel->saveUser($user);
 // echo $user;
 

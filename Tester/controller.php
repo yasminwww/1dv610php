@@ -1,9 +1,9 @@
 <?php
 
 
-if($database->getConnection()) {
-    echo 'true' . '<br>';
-}
+// if($database->getConnection()) {
+//     echo 'true' . '<br>';
+// }
 
 class AppController {
 
