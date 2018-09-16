@@ -8,7 +8,6 @@ class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $submitSignup = 'LoginView::SubmitSignup';
 	private static $signup = 'LoginView::Signup';
-
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
@@ -18,8 +17,6 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-
-	
 
 	/**
 	 * Create HTTP response
@@ -33,6 +30,7 @@ class LoginView {
 		//START: Lägger till en regView
 		if(isset($_POST[self::$signup])){
 			$response = $this->registrationView($message);
+
 		} else {
 			$response = $this->generateLoginFormHTML($message);
 			//$response .= $this->generateLogoutButtonHTML($message);
@@ -63,6 +61,8 @@ class LoginView {
 	private function generateLoginFormHTML($message) {
 		return '
 			<form method="post" > 
+			<input type="submit" value="SignUp" name="LoginView::Signup">
+
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
@@ -76,28 +76,32 @@ class LoginView {
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<input type="submit" name="' . self::$login . '" value="Login" />
 				</fieldset>
 			</form>
 		';
 	}
 	
+	public function registrationForm() {
+		return isset($_POST[self::$submitSignup]);
+	}
+
+	public function loginForm() {
+		return isset($_POST[self::$login]);
+	}
+
 	 //CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	public function getRequestUserName() {
 		if(isset($_POST[self::$name])) {
 			return $_POST[self::$name];
-		} else {
-			return 'Please enter a username.';
+
 		}
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
 
 	public function getRequestPassword() {
-		if(isset($_POST[self::$password])) {
 			return $_POST[self::$password];
-		}
-		return 'Please enter a password.';
-		//RETURN REQUEST VARIABLE: USERNAME
+		//RETURN REQUEST VARIABLE: PASSWORD
 	}
 
 	function registrationView($message) {
@@ -117,8 +121,12 @@ class LoginView {
 						<label for="' . self::$password2 . '">Repeat Password :</label>
 						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
 
-						<input type="submit" name="' . self::$signup . '" value="signup" />
+						<input type="submit" name="' . self::$submitSignup . '" value="Signup" />
 					</fieldset>
                 </form>';
-    }
+	}
+	
+	public function monkey() {
+		return '<h1>MONKEY!</h1>';
+	}
 }

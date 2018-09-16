@@ -30,11 +30,7 @@ class LayoutView {
     else {
       // Visa/länka till en knapp
 
-      return '<h2>Not logged in</h2>
-              <br>
-              <form method="POST">
-                <input type="submit" value="SignUp" name="signup">
-              </form>';
+      return '<h2>Not logged in</h2>';
     }
   }
 

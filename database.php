@@ -44,5 +44,5 @@ class Database {
     //   return $escaped_string;
     // }
 }
-
+$database = new Database();
 ?>

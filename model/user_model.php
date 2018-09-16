@@ -1,17 +1,14 @@
 <?php
 require_once('init.php');
 
-if($database->getConnection()) {
-  echo 'true' . '<br>';
-
-		// $query = "SELECT * FROM users WHERE id=2 ";
+// $query = "SELECT * FROM users WHERE id=2 ";
 
     // $result = $database->query($query);
     // $user_found = mysqli_fetch_array($result);
 
     // echo $user_found['username'];
   
-}
+// }
 
 class User {
     
@@ -20,24 +17,29 @@ class User {
     private $password = null;
 
     public function setUsername($username) {
-
-        $this->username = $username;
+		$this->username = $username;
+		
 	}
 	
     public function setPassword($password) {
-
         $this->password = $password;
     }
 
     public function getUsername() {
-
         return $this->username;
 }
+	// public function checkForDublicatedUsernames() {
 
-public function saveUser() {
-	
 
-}
+	// }
+
+	public function saveUser() {
+		
+			$query = "INSERT INTO users(username, password) VALUES ('$this->username', '$this->password')";
+
+			$result = $database->guery($guery);
+
+	}
 		// $password = $_POST[self::$password];
 
 		// if($username && $password) {
