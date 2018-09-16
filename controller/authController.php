@@ -33,7 +33,9 @@ class authController extends LoginView{
                 $user = new User();
                 $user->setUsername($username);
                 $user->setPassword($password);
-                $user->saveUser();
+                // $user->saveUser();
+                $person = $user->getUsername();
+                echo $person;
 
                 return $this->monkey();
 

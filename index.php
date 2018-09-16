@@ -29,4 +29,9 @@ echo $authC->register();
 
 //CREATE OBJECTS OF DATABASE
 $database = new Database();
-$userModel = new User($database);
+$userModel = new User();
+$user = $v->getRequestUserName();
+// $userModel->saveUser($user);
+// echo $user;
+
+ 
