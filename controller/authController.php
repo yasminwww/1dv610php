@@ -41,7 +41,7 @@ class AuthController {
         if($this->view->loginForm()) {
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
-            if($username == 'Admin' && $password == 'Admin') {
+            if($username == 'admin' && $password == 'admin') {
                 echo $username;
                 $_SESSION['user'] = $username;
             }
