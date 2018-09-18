@@ -79,13 +79,14 @@ class LoginView {
 	public function getRequestUserName() {
 		if(isset($_POST['UserName'])) {
 			return $_POST['UserName'];
-
+			//RETURN REQUEST VARIABLE: USERNAME
 		}
-		//RETURN REQUEST VARIABLE: USERNAME
 	}
 
 	public function getRequestPassword() {
+		if(isset($_POST['Password'])) {
 			return $_POST['Password'];
+		}
 		//RETURN REQUEST VARIABLE: PASSWORD
 	}
 

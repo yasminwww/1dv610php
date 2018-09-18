@@ -27,6 +27,7 @@ $database = new Database();
 //CREATE OBJECTS OF CONTROLLERS
 $authC = new AuthController($v, $database);
 echo $authC->register();
+echo $authC->login();
 
 //CREATE OBJECTS OF DATABASE
 //$userModel = new User();

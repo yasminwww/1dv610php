@@ -22,8 +22,6 @@ class AuthController {
 
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
-
-
     
             // IF validation from  model-database is true,!!
                 $user = new User();
@@ -36,4 +34,17 @@ class AuthController {
 
         }
     }
+
+    public function login() {
+
+        if($this->view->loginForm()) {
+            $username = $this->view->getRequestUserName();
+            $password = $this->view->getRequestPassword();
+            if($username == 'Admin' && $password == 'Admin') {
+                echo $username;
+                $_SESSION['user'] = $username;
+            }
+            
+        }
+    } 
 }
