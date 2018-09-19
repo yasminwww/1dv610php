@@ -42,8 +42,9 @@ class LoginView {
 			// echo '1';
 			return $this->registrationView($this->validationMessage());
 
-		} else if ($this->isTryingToLogin($this->validationMessage())) {
+		} else if ($this->isTryingToLogin()) {
 			// echo '2';
+			return  $this->generateLoginFormHTML($this->validationMessage());
 		} else {
 			// echo '3';
 			// TODO: Kom ihåg att session_destroy kanske bör flyttas i framtiden.

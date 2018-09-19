@@ -54,12 +54,8 @@ class MainController {
                 echo $_SESSION['username'];
 
             } else {
-                // TODO Currently, this code does nothing at all. DIsplay the message somehow.
-                //$this->loginView->validationMessage();
             }
-
             // echo 'isTryingToLogin';
-
         } else {
             // echo 'Your attempts are futile  and laughable and smell of catshit';
         }
