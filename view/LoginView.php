@@ -60,11 +60,11 @@ class LoginView {
 	* @param $message, String output message
 	* @return  void, BUT writes to standard output!
 	*/
-	// <input type="submit" value="SignUp" name="' . self::$signup . '">
 	public function generateLoginFormHTML($message) {
 		return '
-			<form method="post">
-				<fieldset>
+		<form method="post">
+		<input type="submit" value="SignUp" name="' . self::$signup . '">
+		<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>

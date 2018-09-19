@@ -9,19 +9,10 @@ class User{
 	private $password = null;
 	// private $database;
 
-	// public function __construct($username, $password) {
-	// 	$this->username = $username;
-	// 	$this->password = $password;
-
-	// }
-
-    public function setUsername($username) {
+	public function __construct($username, $password) {
 		$this->username = $username;
+		$this->password = $password;
 	}
-	
-    public function setPassword($password) {
-        $this->password = $password;
-    }
 
     public function getUsername() {
         return $this->username;

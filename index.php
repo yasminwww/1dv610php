@@ -4,6 +4,9 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
+require_once('database.php');
+require_once('model/user_model.php');
+
 
 $DEPLOYED = false;
 
@@ -30,6 +33,7 @@ class MainController {
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
+        $this->database = new Database();
     }
 
     public function run() {
@@ -40,7 +44,13 @@ class MainController {
             $password = $this->loginView->getRequestUserName();
 
             // echo 'isTryingToRegister';
+            $user = new User($username, $password);
+            $user->saveUser($this->database);
+            $person = $user->getUsername();
+
         } else if ($this->loginView->isTryingToLogin()) {
+            return $this->loginView->validationMessage();
+
             // echo 'isTryingToLogin';
 
         } else {
@@ -58,8 +68,6 @@ class MainController {
     private function renderHTML() {
         $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
     }
-
-
 }
 
 

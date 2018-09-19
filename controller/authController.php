@@ -18,9 +18,7 @@ class AuthController {
             $password = $this->view->getRequestPassword();
     
             // IF validation from  model-database is true,!!
-                $user = new User();
-                $user->setUsername($username);
-                $user->setPassword($password);
+                $user = new User($username, $password);
                 $user->saveUser($this->database);
                 $person = $user->getUsername();
                 return $this->view->monkey();
