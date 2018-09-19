@@ -8,6 +8,7 @@ class AuthController {
 
     private $view;
     private $database;
+    public $message;
 
      public function __construct($v, $database) {
          $this->view = $v;
@@ -19,7 +20,7 @@ class AuthController {
     // OM SIGNUP KNAPPEN HAR BLIVIT TRYCKT
     public function register() {
 
-        if($this->view->registrationForm()) {
+        if($this->view->checkRegistrationForm()) {
 
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
@@ -35,17 +36,19 @@ class AuthController {
 
         }
     }
-
+// Kolla om funtionerna är 
     public function login() {
 
-        if($this->view->loginForm()) {
+        if($this->view->checkLoginForm()) {
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
-            if($username == 'admin' && $password == 'admin') {
-                echo $username;
+            if($username == 'Admin' && $password == 'Admin') {
+                // echo $username;
                 $_SESSION['user'] = $username;
+                echo $_SESSION['user'];
+            } else {
+               return $this->view->errorMessage();
             }
-            
         }
     } 
 }
