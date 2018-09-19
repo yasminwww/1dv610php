@@ -4,37 +4,65 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
-require_once('controller/authController.php');
-require_once('database.php');
-require_once('model/user_model.php');
 
+$DEPLOYED = false;
 
-//MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+if ($DEPLOYED) {
+
+} else {
+    //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
+    error_reporting(E_ALL);
+    ini_set('display_errors', 'On');
+}
+
 session_start();
 
-//CREATE OBJECTS OF THE VIEWS
-$v = new LoginView();
-$dtv = new DateTimeView();
-$lv = new LayoutView();
+class MainController {
+
+    private $layoutView;
+    private $loginView;
+    private $timeView;
+
+    private $database;
 
 
-$lv->render(false, $v, $dtv);
+    public function __construct() {
+        $this->layoutView = new LayoutView();
+        $this->loginView = new LoginView();
+        $this->timeView = new DateTimeView();
+    }
+
+    public function run() {
+
+        if ($this->loginView->isTryingToSignup()) {
+
+            $username = $this->loginView->getRequestUserName();
+            $password = $this->loginView->getRequestUserName();
+
+            // echo 'isTryingToRegister';
+        } else if ($this->loginView->isTryingToLogin()) {
+            // echo 'isTryingToLogin';
+
+        } else {
+            // echo 'Your attempts are futile  and laughable and smell of catshit';
+        }
+
+        // Render site accordingly
+        $this->renderHTML();
+    }
+
+    //private function isLoggingIn(): bool {}
+
+    //private function isSigningUp(): bool {}
+
+    private function renderHTML() {
+        $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
+    }
 
 
-$database = new Database();
+}
 
-//CREATE OBJECTS OF CONTROLLERS
-$authC = new AuthController($v, $database, $lv, $dtv);
-echo $authC->register();
-echo $authC->login();
 
-//CREATE OBJECTS OF DATABASE
-//$userModel = new User();
-//$userModel->saveUser($database);
-// $user = $v->getRequestUserName();
-// $userModel->saveUser($user);
-// echo $user;
+$controller = new MainController();
 
- 
+$controller->run(); //renderHTML();
