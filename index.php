@@ -33,23 +33,30 @@ class MainController {
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
+
         // $this->database = new Database();
     }
 
     public function run() {
 
         if ($this->loginView->isTryingToSignup()) {
+            debug_print_backtrace();
+            $credentials = $this->loginView->getCredentialsInForm();
 
-            $username = $this->loginView->getRequestUserName();
-            $password = $this->loginView->getRequestUserName();
-
-            // echo 'isTryingToRegister';
-            // $user = new User($username, $password);
-            // $user->saveUser($this->database);
-            // $person = $user->getUsername();
 
         } else if ($this->loginView->isTryingToLogin()) {
-            return $this->loginView->validationMessage();
+
+            $credentials = $this->loginView->getCredentialsInForm();
+
+            if($credentials->username == 'Admin' && $credentials->password == 'Admin') {
+                $_SESSION['username'] = $credentials->username;
+                $_SESSION['password'] = $credentials->password;
+                echo $_SESSION['username'];
+
+            } else {
+                // TODO Currently, this code does nothing at all. DIsplay the message somehow.
+                //$this->loginView->validationMessage();
+            }
 
             // echo 'isTryingToLogin';
 
@@ -61,12 +68,13 @@ class MainController {
         $this->renderHTML();
     }
 
-    //private function isLoggingIn(): bool {}
-
-    //private function isSigningUp(): bool {}
 
     private function renderHTML() {
         $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
+    }
+
+    public function killSession() {
+        session_destroy();
     }
 }
 

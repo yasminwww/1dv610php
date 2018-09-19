@@ -1,4 +1,15 @@
 <?php
+
+class Credentials {
+	public $username;
+	public $password;
+
+	public function __construct(string $username, string $password) {
+		$this->username = $username;
+		$this->password = $password;
+	}
+}
+
 class LoginView {
 	private static $submitSignup = "LoginView::SubmitSignup";
 	private static $signup = "LoginView::Signup";
@@ -25,17 +36,20 @@ class LoginView {
 	 */
 	
 	public function response() {
-		$message = $this->message;
+		
 		//START: Lägger till en regView
 		if ($this->isNavigatingToRegistration()) {
 			// echo '1';
-			return $this->registrationView($message);
+			return $this->registrationView($this->validationMessage());
 
-		} else if ($this->isTryingToLogin($message)) {
+		} else if ($this->isTryingToLogin($this->validationMessage())) {
 			// echo '2';
 		} else {
 			// echo '3';
-			return $this->generateLoginFormHTML($message);
+			// TODO: Kom ihåg att session_destroy kanske bör flyttas i framtiden.
+			session_destroy();
+			return $this->generateLoginFormHTML('');
+			
 			//return $this->generateLogoutButtonHTML($message);
 		}
 	}
@@ -84,9 +98,17 @@ class LoginView {
 	public function isTryingToSignup() : bool { return isset($_POST[self::$submitSignup]); }
 	public function isTryingToLogin() 	 : 	bool { return isset($_POST[self::$login]); }
 
-	public function getRequestUserName() { return $_POST[self::$name]; }
+	public function getRequestUserName() { 
+		if (isset($_POST[self::$name])) {
+			return $_POST[self::$name]; 
+		}
+		}
 
-	public function getRequestPassword() { return $_POST[self::$password]; }
+	public function getRequestPassword() {
+		if (isset($_POST[self::$password])) {
+			return $_POST[self::$password]; 
+		}		
+	}
 
 	public function errorMessage($validationMessage) {
 		$this->message = $validationMessage;
@@ -98,11 +120,13 @@ class LoginView {
                isset($_SESSION['password']) && $_SESSION['password'] == 'Admin';
     }
 
-	public function validationMessage(): string {
+	public function validationMessage() : string {
 		if(empty($this->getRequestUserName())) {
 			return 'Username is missing';
 		} else if(empty($this->getRequestPassword())) {
 			return 'Password is missing';
+		} else {
+			return '';
 		}
 	}
 	// public function errorMessage() {
@@ -117,6 +141,11 @@ class LoginView {
 	// 		self::$message = 'got to hell';
 	// 	}
 	// }
+
+	public function getCredentialsInForm() {
+		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
+	}
+
 	public function registrationView($message) {
         
         return '
