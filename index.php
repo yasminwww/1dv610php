@@ -33,7 +33,7 @@ class MainController {
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
-        $this->database = new Database();
+        // $this->database = new Database();
     }
 
     public function run() {
@@ -44,9 +44,9 @@ class MainController {
             $password = $this->loginView->getRequestUserName();
 
             // echo 'isTryingToRegister';
-            $user = new User($username, $password);
-            $user->saveUser($this->database);
-            $person = $user->getUsername();
+            // $user = new User($username, $password);
+            // $user->saveUser($this->database);
+            // $person = $user->getUsername();
 
         } else if ($this->loginView->isTryingToLogin()) {
             return $this->loginView->validationMessage();
