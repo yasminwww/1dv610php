@@ -14,7 +14,7 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	public static $message = '';
+	public $message = '';
 
 	/**
 	 * Create HTTP response
@@ -28,11 +28,11 @@ class LoginView {
 		
 		//START: Lägger till en regView
 		if(isset($_POST[self::$signup])){
-			$response = $this->registrationView(self::$message);
+			$response = $this->registrationView($this->errorMessage());
 		 } 
 
 
-			$response = $this->generateLoginFormHTML(self::$message);
+			$response = $this->generateLoginFormHTML($this->errorMessage());
 			//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
 	}
@@ -98,19 +98,17 @@ class LoginView {
 
 	public function errorMessage() {
 		if(empty($_POST[self::$name])) {
-		self::$message = 'Username is missing.';
-		return self::$message;
+			return 'Username is missing.';
 
 		} else if(empty($_POST[self::$password])) {
-			self::$message = 'Password is missing.';
-		return self::$message;
+			return 'Password is missing.';
 
-		}
-		if(isset($_POST[self::$name])) {
-			self::$message = 'got to hell';
-		}
+
+		}else if()
+		// if(isset($_POST[self::$name]) {
+		// 	$this->$message = 'got to hell';
+		// }
 	}
-
 
 	public function registrationView($message) {
         

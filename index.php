@@ -26,7 +26,7 @@ $lv->render(false, $v, $dtv);
 $database = new Database();
 
 //CREATE OBJECTS OF CONTROLLERS
-$authC = new AuthController($v, $database);
+$authC = new AuthController($v, $database, $lv, $dtv);
 echo $authC->register();
 echo $authC->login();
 

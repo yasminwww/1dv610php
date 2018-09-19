@@ -8,12 +8,19 @@ class AuthController {
 
     private $view;
     private $database;
+    private $layoutView;
+    private $time;
+
+
     public $message;
 
-     public function __construct($v, $database) {
+
+     public function __construct($v, $database, $lv, $dtv) {
          $this->view = $v;
          $this->database = $database;
-        //  var_dump($database);
+         $this->layoutView = $lv;
+         $this->time = $dtv;
+        //  var_dump($renderAllViews);
      }
 
 
@@ -40,12 +47,15 @@ class AuthController {
     public function login() {
 
         if($this->view->checkLoginForm()) {
+
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
+            // Database has the user
             if($username == 'Admin' && $password == 'Admin') {
                 // echo $username;
                 $_SESSION['user'] = $username;
                 echo $_SESSION['user'];
+                
             } else {
                return $this->view->errorMessage();
             }
