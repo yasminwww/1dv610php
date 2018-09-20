@@ -54,13 +54,11 @@ class MainController {
                 echo $_SESSION['username'];
 
             } else {
+
             }
-            // echo 'isTryingToLogin';
         } else {
-            // echo 'Your attempts are futile  and laughable and smell of catshit';
         }
 
-        // Render site accordingly
         $this->renderHTML();
     }
 
