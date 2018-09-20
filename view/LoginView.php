@@ -107,7 +107,7 @@ class LoginView {
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<input type="submit" name="' . self::$login . '" value="' . self::$login . '" />
 				</fieldset>
             </form>
 		';
@@ -183,7 +183,7 @@ class LoginView {
 						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 						<label for="' . self::$password2 . '">Repeat Password :</label>
 						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
-						<input type="submit" name="' . self::$submitSignup . '" value="Signup" />
+						<input type="submit" name="' . self::$submitSignup . '" value="' . self::$submitSignup . '" />
 					</fieldset>
                 </form>';
 	}
