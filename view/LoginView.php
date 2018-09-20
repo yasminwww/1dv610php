@@ -43,22 +43,22 @@ class LoginView {
 		if ($this->isNavigatingToRegistration()) {
 
 			
-			echo '1';
+			// echo '1';
 			return $this->registrationView('');
 			
  		} else if ($this->isTryingToSignup()) {
 			 
-			 echo '2';
+			//  echo '2';
 			return $this->registrationView($this->validationMessageRegister());
 
 		} else if ($this->isTryingToLogin()) {
 			
-			echo '3';
+			// echo '3';
 			return  $this->generateLoginFormHTML($this->validationMessageLogin());
 
 		} else {
-			session_destroy();			
-			echo '4';
+			// session_destroy();			
+			// echo '4';
 			return $this->generateLoginFormHTML('');
 		}
 	}
