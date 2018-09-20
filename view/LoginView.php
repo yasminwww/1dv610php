@@ -61,15 +61,11 @@ class LoginView {
 			//  echo '2';
 			return $this->registrationView($this->validationMessageRegister());
 
-		// } else if ($this->isAuthorised()) {
-
-		// 	return $this->generateLogoutButtonHTML('Welcome');
-
 		} else if ($this->isTryingToLogin()) {
 
 			if($this->isAuthorised()) {
 
-			return $this->generateLogoutButtonHTML('Welcome!');
+				return $this->generateLogoutButtonHTML('Welcome!');
 
 			} else {
 
@@ -165,8 +161,8 @@ class LoginView {
 
 			return 'Password is missing';
 
-		} else if ($this->getRequestUserName() !== $this->correctCredentials->username ||
-		           $this->getRequestPassword() !== $this->correctCredentials->password) {
+		} else if ($this->getRequestUserName() != $this->correctCredentials->username ||
+		           $this->getRequestPassword() != $this->correctCredentials->password) {
 			
 			return 'Wrong name or password';
 		
@@ -235,9 +231,5 @@ class LoginView {
 
 	public function getCredentialsInForm() {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
-	}
-
-	public function monkey() {
-		return '<h1>MONKEY!</h1>';
 	}
 }
