@@ -51,13 +51,17 @@ class LoginView {
 			//  echo '2';
 			return $this->registrationView($this->validationMessageRegister());
 
+		} else if ($this->isAuthorised()) {
+
+			return $this->generateLogoutButtonHTML('Welcome');
+
 		} else if ($this->isTryingToLogin()) {
 			
 			// echo '3';
 			return  $this->generateLoginFormHTML($this->validationMessageLogin());
 			
 
-		// } else if($this->isAuthorised()) {
+		// } else if ($this->isAuthorised()) {
 
 		// 	return $this->generateLogoutButtonHTML('Welcome');
 
