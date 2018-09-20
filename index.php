@@ -37,9 +37,13 @@ class MainController {
             $credentials = $this->loginView->getCredentialsInForm();
             // debug_print_backtrace();
             if($credentials->username >=3 && $credentials->password >=6) {
-                $_SESSION['username'] = $credentials->username;
-                $_SESSION['password'] = $credentials->password;
-                // echo $_SESSION['username'];
+
+                if ($credentials->username != $this->loginView->correctCredentials->username) {
+                    $_SESSION['username'] = $credentials->username;
+                    $_SESSION['password'] = $credentials->password;
+                    // echo $_SESSION['username'];
+                }
+                
             }
 
 
@@ -48,7 +52,8 @@ class MainController {
 
             $credentials = $this->loginView->getCredentialsInForm();
 
-            if($credentials->username == 'Admin' && $credentials->password == 'Admin') {
+            if ($credentials->username == $this->loginView->correctCredentials->username &&
+                $credentials->password == $this->loginView->correctCredentials->password) {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
                 // echo $_SESSION['username'];
