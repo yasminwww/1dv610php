@@ -33,7 +33,7 @@ class MainController {
     public function run() {
 
         if ($this->loginView->isTryingToSignup()) {
-            debug_print_backtrace();
+            // debug_print_backtrace();
             $credentials = $this->loginView->getCredentialsInForm();
 
 
