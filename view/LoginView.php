@@ -1,5 +1,7 @@
 <?php
 
+// require_once('RegisterView.php');
+
 class Credentials {
 	public $username;
 	public $password;
@@ -15,9 +17,11 @@ class Credentials {
 }
 
 class LoginView {
-	private static $submitSignup = "LoginView::SubmitSignup";
-	private static $signupForm = "LoginView::Signup";
-	private static $password2 = "LoginView::Password2";
+
+    
+    private static $submitSignup = "LoginView::SubmitSignup";
+    private static $signupForm = "LoginView::Signup";
+    private static $passwordRepeat = "LoginView::PasswordRepeat";
 
 	private static $loginForm = "LoginView::LoginForm";
     private static $login = 'LoginView::Login';
@@ -44,6 +48,7 @@ class LoginView {
 
 	public function __construct() {
 		$this->correctCredentials = new Credentials('Admin', 'password');
+
 	}
 	
 	public function response() {
@@ -173,25 +178,37 @@ class LoginView {
 	}
 
 
-	public function registrationView($message) {
+	// private static $name = 'RegisterView::UserName';
+    // private static $password = 'RegisterView::Password';
+    
+    // private static $submitSignup = "RegisterView::SubmitSignup";
+    // private static $signupForm = "RegisterView::Signup";
+    // private static $passwordRepeat = "RegisterView::PasswordRepeat";
+    
+    
+    
+    
+    
+    public function registrationView($message) {
         
-		return '
-				<form method="POST">
-					<input type="submit" name="' . self::$loginForm . '" value="Back to login"/>
-					<fieldset>
-						<legend>Sign Up - enter Username and password</legend>
-						<p id="' . self::$messageId . '">' . $message . '</p>
-						
-						<label for="' . self::$name . '">Username :</label>
-						<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
-						<label for="' . self::$password . '">Password :</label>
-						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
-						<label for="' . self::$password2 . '">Repeat Password :</label>
-						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
-						<input type="submit" name="' . self::$submitSignup . '" value="SignUp" />
-					</fieldset>
+        return '
+                <form method="POST">
+                    <input type="submit" name="' . self::$loginForm . '" value="Back to login"/>
+                    <fieldset>
+                        <legend>Sign Up - enter Username and password</legend>
+                        <p id="' . self::$messageId . '">' . $message . '</p>
+                        
+                        <label for="' . self::$name . '">Username :</label>
+                        <input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
+                        <label for="' . self::$password . '">Password :</label>
+                        <input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+                        <label for="' . self::$passwordRepeat . '">Repeat Password :</label>
+                        <input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
+                        <input type="submit" name="' . self::$submitSignup . '" value="SignUp" />
+                    </fieldset>
                 </form>';
-	}
+    }
+
 	
 	public function isUsernameTooShort() : bool {
 		return strlen($this->getRequestUserName()) < 3;
@@ -215,20 +232,24 @@ class LoginView {
 				return ' Password has too few characters, at least 6 characters.';
 			}
 
-			else if($this->getRequestPassword() != $_POST[self::$password2]) {
+			else if($this->getRequestPassword() != $_POST[self::$passwordRepeat]) {
 
 				return 'Password does not match';
 
-		} else if($this->getRequestUserName() == 'Admin') {
+		} else if($this->getRequestUserName() == $this->correctCredentials->username) {
 
 			return 'User exists, pick another username.';
 
 		} else {
 		
-			return '';
+			return 'Registered new user.';
 		}
 	}
 
+	public function userHasValidRegistrationInformation()
+ {
+	
+ }
 	public function getCredentialsInForm() {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
 	}

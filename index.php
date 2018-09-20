@@ -1,9 +1,10 @@
 <?php
 
 //INCLUDE THE FILES NEEDED...
+require_once('view/LayoutView.php');
+require_once('view/RegisterView.php');
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
-require_once('view/LayoutView.php');
 require_once('database.php');
 require_once('model/user_model.php');
 
@@ -18,14 +19,17 @@ class MainController {
     private $layoutView;
     private $loginView;
     private $timeView;
+    // private $reqisterView;
 
     private $database;
 
 
     public function __construct() {
         $this->layoutView = new LayoutView();
+        // $this->reqisterView = new RegisterView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
+
 
         // $this->database = new Database();
     }
