@@ -82,7 +82,6 @@ class LoginView {
 		</form>
 	';
 }
-
 	
 	/**
 	* Generate HTML code on the output buffer for the logout button
