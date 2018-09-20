@@ -69,8 +69,8 @@ class LoginView {
 		} else if ($this->isTryingToLogin()) {
 
 			if($this->isAuthorised()) {
-
-				return $this->generateLogoutButtonHTML('Welcome!');
+				echo 'poop';
+				// return $this->generateLogoutButtonHTML('Welcome!');
 
 			} else {
 
