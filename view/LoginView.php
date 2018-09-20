@@ -56,7 +56,7 @@ class LoginView {
 		// 	return $this->generateLogoutButtonHTML('Welcome');
 
 		} else if ($this->isTryingToLogin()) {
-			
+
 			if($this->isAuthorised()) {
 
 			return $this->generateLogoutButtonHTML('Welcome');
@@ -102,7 +102,7 @@ class LoginView {
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . self::$name . '" />
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
@@ -178,7 +178,7 @@ class LoginView {
 						<p id="' . self::$messageId . '">' . $message . '</p>
 						
 						<label for="' . self::$name . '">Username :</label>
-						<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+						<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . self::$name . '" />
 						<label for="' . self::$password . '">Password :</label>
 						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
 						<label for="' . self::$password2 . '">Repeat Password :</label>
