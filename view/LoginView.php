@@ -38,7 +38,7 @@ class LoginView {
 	
 	public function response() {
 		
-		//START: Lägger till en regView
+		//START:
 
 		if ($this->isNavigatingToRegistration()) {
 
@@ -55,9 +55,15 @@ class LoginView {
 			
 			// echo '3';
 			return  $this->generateLoginFormHTML($this->validationMessageLogin());
+			
+
+		// } else if($this->isAuthorised()) {
+
+		// 	return $this->generateLogoutButtonHTML('Welcome');
+
 
 		} else {
-			// session_destroy();			
+			session_destroy();			
 			// echo '4';
 			return $this->generateLoginFormHTML('');
 		}
@@ -84,6 +90,7 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	public function generateLoginFormHTML($message) {
+
 		return ' 
 		<form method="post">
 		<input type="submit" name="' . self::$signupForm . '" value="Register a new user"/>
@@ -161,7 +168,7 @@ class LoginView {
         
 		return '
 				<form method="POST">
-					<input type="submit" name="' . self::$loginForm . '" value="Register a new user"/>
+					<input type="submit" name="' . self::$loginForm . '" value="Back to login"/>
 					<fieldset>
 						<legend>Sign Up - enter Username and password</legend>
 						<p id="' . self::$messageId . '">' . $message . '</p>

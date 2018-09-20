@@ -33,8 +33,14 @@ class MainController {
     public function run() {
 
         if ($this->loginView->isTryingToSignup()) {
-            // debug_print_backtrace();
+
             $credentials = $this->loginView->getCredentialsInForm();
+            // debug_print_backtrace();
+            if($credentials->username >=3 && $credentials->password >=6) {
+                $_SESSION['username'] = $credentials->username;
+                $_SESSION['password'] = $credentials->password;
+                echo $_SESSION['username'];
+            }
 
 
 
@@ -45,7 +51,7 @@ class MainController {
             if($credentials->username == 'Admin' && $credentials->password == 'Admin') {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
-                echo $_SESSION['username'];
+                // echo $_SESSION['username'];
             } else {
             }
             
