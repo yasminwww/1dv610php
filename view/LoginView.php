@@ -12,9 +12,10 @@ class Credentials {
 
 class LoginView {
 	private static $submitSignup = "LoginView::SubmitSignup";
-	private static $signup = "LoginView::Signup";
+	private static $signupForm = "LoginView::Signup";
 	private static $password2 = "LoginView::Password2";
 
+	private static $loginForm = "LoginView::LoginForm";
     private static $login = 'LoginView::Login';
     private static $logout = 'LoginView::Logout';
     private static $name = 'LoginView::UserName';
@@ -38,20 +39,27 @@ class LoginView {
 	public function response() {
 		
 		//START: Lägger till en regView
+
 		if ($this->isNavigatingToRegistration()) {
-			// echo '1';
-			return $this->registrationView($this->validationMessage());
+
+			
+			echo '1';
+			return $this->registrationView('');
+			
+ 		} else if ($this->isTryingToSignup()) {
+			 
+			 echo '2';
+			return $this->registrationView($this->validationMessageRegister());
 
 		} else if ($this->isTryingToLogin()) {
-			// echo '2';
-			return  $this->generateLoginFormHTML($this->validationMessage());
-		} else {
-			// echo '3';
-			// TODO: Kom ihåg att session_destroy kanske bör flyttas i framtiden.
-			session_destroy();
-			return $this->generateLoginFormHTML('');
 			
-			//return $this->generateLogoutButtonHTML($message);
+			echo '3';
+			return  $this->generateLoginFormHTML($this->validationMessageLogin());
+
+		} else {
+			session_destroy();			
+			echo '4';
+			return $this->generateLoginFormHTML('');
 		}
 	}
 
@@ -76,9 +84,9 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	public function generateLoginFormHTML($message) {
-		return '
+		return ' 
 		<form method="post">
-		<input type="submit" value="SignUp" name="' . self::$signup . '">
+		<input type="submit" name="' . self::$signupForm . '" value="Register a new user"/>
 		<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
@@ -94,10 +102,14 @@ class LoginView {
 		';
     }
 
-	public function isNavigatingToRegistration() : 	bool { return isset($_POST[self::$signup]); }
+	public function isNavigatingToRegistration() : 	bool { return isset($_POST[self::$signupForm]); }
+	public function isNavigatingToLogin() : 	bool { return isset($_POST[self::$loginForm]); }
+
 
 	public function isTryingToSignup() : bool { return isset($_POST[self::$submitSignup]); }
 	public function isTryingToLogin() 	 : 	bool { return isset($_POST[self::$login]); }
+
+	public function isLoggingOut() : bool { return isset($_POST[self::$logout]); }
 
 	public function getRequestUserName() { 
 		if (isset($_POST[self::$name])) {
@@ -121,27 +133,25 @@ class LoginView {
                isset($_SESSION['password']) && $_SESSION['password'] == 'Admin';
     }
 
-	public function validationMessage() : string {
+	public function validationMessageLogin() : string {
+
 		if(empty($this->getRequestUserName())) {
+
 			return 'Username is missing';
+
 		} else if(empty($this->getRequestPassword())) {
+
 			return 'Password is missing';
+
+		} else if($this->getRequestUserName() == 'Admin' && $this->getRequestPassword() !== 'Admin') {
+			
+			return 'Wrong name or password';
+		
 		} else {
+			
 			return '';
 		}
 	}
-	// public function errorMessage() {
-	// 	if(empty($_POST[self::$name])) {
-	// 	self::$message = 'Username is missing.';
-	// 	return self::$message;
-	// 	} else if(empty($_POST[self::$password])) {
-	// 		self::$message = 'Password is missing.';
-	// 	return self::$message;
-	// 	}
-	// 	if(isset($_POST[self::$name])) {
-	// 		self::$message = 'got to hell';
-	// 	}
-	// }
 
 	public function getCredentialsInForm() {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
@@ -149,8 +159,9 @@ class LoginView {
 
 	public function registrationView($message) {
         
-        return '
+		return '
 				<form method="POST">
+					<input type="submit" name="' . self::$loginForm . '" value="Register a new user"/>
 					<fieldset>
 						<legend>Sign Up - enter Username and password</legend>
 						<p id="' . self::$messageId . '">' . $message . '</p>
@@ -166,6 +177,27 @@ class LoginView {
                 </form>';
 	}
 	
+
+	public function validationMessageRegister() : string {
+
+			if(strlen($_POST[self::$name]) < 3) {
+
+				return 'Username has too few characters, at least 3 characters';
+
+			} if(strlen($_POST[self::$password]) < 6) {
+
+				return 'Password has too few characters, at least 6 characters.';
+
+			} else if($_POST[self::$password] !== $_POST[self::$password2]){
+
+				return 'Password does not match';
+
+		} else {
+		return '';
+	}
+}
+
+
 	public function monkey() {
 		return '<h1>MONKEY!</h1>';
 	}

@@ -7,16 +7,9 @@ require_once('view/LayoutView.php');
 require_once('database.php');
 require_once('model/user_model.php');
 
-
-$DEPLOYED = false;
-
-if ($DEPLOYED) {
-
-} else {
     //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
     error_reporting(E_ALL);
     ini_set('display_errors', 'On');
-}
 
 session_start();
 
@@ -44,6 +37,7 @@ class MainController {
             $credentials = $this->loginView->getCredentialsInForm();
 
 
+
         } else if ($this->loginView->isTryingToLogin()) {
 
             $credentials = $this->loginView->getCredentialsInForm();
@@ -52,16 +46,14 @@ class MainController {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
                 echo $_SESSION['username'];
-
             } else {
-
             }
+            
         } else {
+            
         }
-
         $this->renderHTML();
     }
-
 
     private function renderHTML() {
         $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
