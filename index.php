@@ -39,7 +39,7 @@ class MainController {
             if($credentials->username >=3 && $credentials->password >=6) {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
-                echo $_SESSION['username'];
+                // echo $_SESSION['username'];
             }
 
 
