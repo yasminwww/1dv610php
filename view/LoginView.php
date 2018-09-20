@@ -192,8 +192,13 @@ class LoginView {
 
 				return 'Password does not match';
 
+		} else if($_POST[self::$name] == 'Admin') {
+
+			return 'User exists, pick another username.';
+
 		} else {
-		return '';
+		
+			return '';
 	}
 }
 
