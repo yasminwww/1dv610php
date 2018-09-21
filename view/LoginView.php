@@ -16,7 +16,7 @@ class LoginView {
 	// private static $signupForm = "LoginView::Signup";
 	// private static $password2 = "LoginView::PasswordRepeat";
 	// private static $loginForm = "LoginView::LoginForm";
-	
+
 	private static $signupForm = "register";
     private static $login = 'LoginView::Login';
     private static $logout = 'LoginView::Logout';
@@ -57,10 +57,16 @@ class LoginView {
 
 		} else if ($this->isTryingToLogin()) {
 
-			if($this->isAuthorised()) {
+			if ($this->isAuthorised() && !isset($_SESSION['already-loggedin']))  {
 
+				$_SESSION['already-loggedin'] = true;
 				return $this->generateLogoutButtonHTML('Welcome');
 
+
+			} else if  ($this->isAuthorised() && isset($_SESSION['already-loggedin'])) {
+
+				return $this->generateLogoutButtonHTML('');
+				
 			} else {
 
 				// echo '3';
@@ -115,6 +121,9 @@ class LoginView {
     }
 
 	public function isNavigatingToRegistration() : 	bool { return isset($_GET[self::$signupForm]); }
+
+	public function rumpa() : 	bool { return isset($_SESSION['username']); }
+
 
 	public function isNavigatingToLogin() : 	bool { return isset($_GET[self::$loginForm]); }
 

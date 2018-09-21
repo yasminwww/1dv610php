@@ -57,6 +57,7 @@ class MainController {
                 $credentials->password == $this->loginView->correctCredentials->password) {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
+                $_SESSION['message'] = 'Welcome';
                 // echo $_SESSION['username'];
             //   if ($this->loginView->isLoggingOut()) {
             //         echo 'logoutbutton';
@@ -68,6 +69,7 @@ class MainController {
     }
     if ($this->loginView->isLoggingOut()) {
         $this->killSession();
+        $_SESSION['message'] = 'Bye bye!';
         return $this->layoutView->render(false, $this->loginView, $this->timeView);        
 
     } else {
