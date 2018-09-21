@@ -4,6 +4,7 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
+// require_once('view/RegisterView.php');
 require_once('database.php');
 require_once('model/user_model.php');
 
@@ -18,6 +19,8 @@ class MainController {
     private $layoutView;
     private $loginView;
     private $timeView;
+    // private $registerView;
+
 
     private $database;
 
@@ -26,21 +29,24 @@ class MainController {
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
+        // $this->registerView = new RegisterView();
 
         // $this->database = new Database();
     }
 
     public function run() {
+        // if($this->loginView->isNavigatingToRegistration()) {
 
-        if ($this->loginView->isTryingToSignup()) {
-
-            $credentials = $this->loginView->getCredentialsInForm();
-            // debug_print_backtrace();
-            if($credentials->username >=3 && $credentials->password >=6) {
-                $_SESSION['username'] = $credentials->username;
-                $_SESSION['password'] = $credentials->password;
-                // echo $_SESSION['username'];
-            }
+            // var_dump($_GET);
+            if ($this->loginView->isTryingToSignup()) {
+                $credentials = $this->loginView->getCredentialsInRegisterForm();
+                // debug_print_backtrace();
+                if($credentials->username >=3 && $credentials->password >=6) {
+                    $_SESSION['username'] = $credentials->username;
+                    $_SESSION['password'] = $credentials->password;
+                    echo $_SESSION['username'];
+                }
+        // }
 
 
 
@@ -48,7 +54,8 @@ class MainController {
 
             $credentials = $this->loginView->getCredentialsInForm();
 
-            if($credentials->username == 'Admin' && $credentials->password == 'Admin') {
+            if ($credentials->username == $this->loginView->correctCredentials->username &&
+                $credentials->password == $this->loginView->correctCredentials->password) {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
                 // echo $_SESSION['username'];

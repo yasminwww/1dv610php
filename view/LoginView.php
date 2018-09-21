@@ -1,5 +1,6 @@
 <?php
 
+
 class Credentials {
 	public $username;
 	public $password;
@@ -11,11 +12,11 @@ class Credentials {
 }
 
 class LoginView {
-	private static $submitSignup = "LoginView::SubmitSignup";
-	private static $signupForm = "LoginView::Signup";
-	private static $password2 = "LoginView::Password2";
+	// private static $submitSignup = "LoginView::SubmitSignup";
+	// private static $signupForm = "LoginView::Signup";
+	// private static $password2 = "LoginView::PasswordRepeat";
+	// private static $loginForm = "LoginView::LoginForm";
 
-	private static $loginForm = "LoginView::LoginForm";
     private static $login = 'LoginView::Login';
     private static $logout = 'LoginView::Logout';
     private static $name = 'LoginView::UserName';
@@ -27,21 +28,23 @@ class LoginView {
 	private static $cookiePassword = "LoginView::CookiePassword";
 
 
-	private $message = '';
-	/**
-	 * Create HTTP response
-	 *
-	 * Should be called after a login attempt has been determined
-	 *
-	 * @return  void BUT writes to standard output and cookies!
-	 */
-	
+	public $correctCredentials;
+
+
+	public function __construct() {
+
+		$this->correctCredentials = new Credentials('Admin', 'Password');
+
+   }
+
+
+
+
 	public function response() {
 		
 		//START:
 
 		if ($this->isNavigatingToRegistration()) {
-
 			
 			// echo '1';
 			return $this->registrationView('');
@@ -51,21 +54,23 @@ class LoginView {
 			//  echo '2';
 			return $this->registrationView($this->validationMessageRegister());
 
-		// } else if ($this->isAuthorised()) {
-
-		// 	return $this->generateLogoutButtonHTML('Welcome');
-
 		} else if ($this->isTryingToLogin()) {
 
 			if($this->isAuthorised()) {
 
-			return $this->generateLogoutButtonHTML('Welcome');
+				return $this->generateLogoutButtonHTML('Welcome');
+
 
 			} else {
 
 				// echo '3';
 				return  $this->generateLoginFormHTML($this->validationMessageLogin());
 			}
+			// if(isset($_POST[self::$logout])) {
+			// 	echo 'hihi';
+
+			// 	return session_destroy();
+			// }
 			
 		} else {
 			session_destroy();			
@@ -87,6 +92,7 @@ class LoginView {
 		</form>
 	';
 }
+
 	
 	/**
 	* Generate HTML code on the output buffer for the logout button
@@ -96,8 +102,8 @@ class LoginView {
 	public function generateLoginFormHTML($message) {
 
 		return ' 
+		<a href="?' . self::$signupForm . '">Register a new user</a>
 		<form method="post">
-		<input type="submit" name="' . self::$signupForm . '" value="Register a new user"/>
 		<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
@@ -113,7 +119,8 @@ class LoginView {
 		';
     }
 
-	public function isNavigatingToRegistration() : 	bool { return isset($_POST[self::$signupForm]); }
+	public function isNavigatingToRegistration() : 	bool { return isset($_GET[self::$signupForm]); }
+
 	public function isNavigatingToLogin() : 	bool { return isset($_POST[self::$loginForm]); }
 
 
@@ -126,7 +133,7 @@ class LoginView {
 		if (isset($_POST[self::$name])) {
 			return $_POST[self::$name]; 
 		}
-		}
+	}
 
 	public function getRequestPassword() {
 		if (isset($_POST[self::$password])) {
@@ -139,24 +146,27 @@ class LoginView {
 	}
 
 	
-    public function isAuthorised(): bool {
-        return isset($_SESSION['username']) && $_SESSION['username'] == 'Admin' &&
-               isset($_SESSION['password']) && $_SESSION['password'] == 'Admin';
+	public function isAuthorised(): bool {
+		$correct = $this->correctCredentials;
+        return isset($_SESSION['username']) && $_SESSION['username'] == $correct->username &&
+               isset($_SESSION['password']) && $_SESSION['password'] == $correct->password;
     }
+
 
 	public function validationMessageLogin() : string {
 
-		if(empty($this->getRequestUserName())) {
+		if (empty($this->getRequestUserName())) {
 
 			return 'Username is missing';
 
-		} else if(empty($this->getRequestPassword())) {
+		} else if (empty($this->getRequestPassword())) {
 
 			return 'Password is missing';
 
-		} else if($this->getRequestUserName() == 'Admin' && $this->getRequestPassword() !== 'Admin') {
-			
-			return 'Wrong name or password';
+		} else if ($this->getRequestUserName() != $this->correctCredentials->username ||
+				   $this->getRequestPassword() != $this->correctCredentials->password) {
+ 
+ 			return 'Wrong name or password';
 		
 		} else {
 			
@@ -168,53 +178,95 @@ class LoginView {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
 	}
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	
+	private static $registerName = 'RegisterView::UserName';
+	private static $registerPassword = 'RegisterView::Password';
+
+	private static $submitSignup = "RegisterView::SubmitSignup";
+	private static $signupForm = "RegisterView::Signup";
+	private static $passwordRepeat = "RegisterView::PasswordRepeat";
+	private static $loginForm = "RegisterView::LoginForm";
+	private static $registerMessageId = 'RegisterView::Message';
+
 	public function registrationView($message) {
         
 		return '
+		<a href="?' . self::$loginForm . '">Back to login</a>
 				<form method="POST">
-					<input type="submit" name="' . self::$loginForm . '" value="Back to login"/>
 					<fieldset>
 						<legend>Sign Up - enter Username and password</legend>
-						<p id="' . self::$messageId . '">' . $message . '</p>
+						<p id="' . self::$registerMessageId . '">' . $message . '</p>
 						
-						<label for="' . self::$name . '">Username :</label>
-						<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestUserName() . '" />
-						<label for="' . self::$password . '">Password :</label>
-						<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
-						<label for="' . self::$password2 . '">Repeat Password :</label>
-						<input type="password" id="' . self::$password2 . '" name="' . self::$password2 . '" />
+						<label for="' . self::$registerName . '">Username :</label>
+						<input type="text" id="' . self::$registerName . '" name="' . self::$registerName . '" value="' . $this->getRequestUserName() . '" />
+						<label for="' . self::$registerPassword . '">Password :</label>
+						<input type="password" id="' . self::$registerPassword . '" name="' . self::$registerPassword . '" />
+						<label for="' . self::$passwordRepeat . '">Repeat Password :</label>
+						<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 						<input type="submit" name="' . self::$submitSignup . '" value="SignUp" />
 					</fieldset>
                 </form>';
 	}
 	
 
+	public function getRequestUserNameFromRegistration() { 
+
+		if (isset($_POST[self::$registerName])) {
+			return $_POST[self::$registerName]; 
+		}
+	}
+
+	public function getRequestPasswordFromRegistration() {
+		if (isset($_POST[self::$registerPassword])) {
+			return $_POST[self::$registerPassword]; 
+		}		
+	}
+
+
+	public function isUsernameTooShort() : bool {
+		return strlen($this->getRequestUserNameFromRegistration()) < 3;
+	}
+
+	public function isPasswordTooShort() : bool {
+		return strlen($this->getRequestPasswordFromRegistration()) < 6;
+	}
+
+
 	public function validationMessageRegister() : string {
 
-			if(strlen($_POST[self::$name]) < 3) {
+		if ($this->isUsernameTooShort() && $this->isPasswordTooShort()) {
+			return 'Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.';
+		}
 
-				return 'Username has too few characters, at least 3 characters';
+		if ($this->isUsernameTooShort()) {
+			return 'Username has too few characters, at least 3 characters.';
+		}
+		
+		if ($this->isPasswordTooShort()) {
+			return ' Password has too few characters, at least 6 characters.';
+		}
 
-			} if(strlen($_POST[self::$password]) < 6) {
-
-				return 'Password has too few characters, at least 6 characters.';
-
-			} else if($_POST[self::$password] !== $_POST[self::$password2]){
+			else if($this->getRequestPasswordFromRegistration() != $_POST[self::$passwordRepeat]) {
 
 				return 'Password does not match';
+		// TODO currently correctC does not work
+			} else if($this->getRequestUserNameFromRegistration() == $this->correctCredentials->username) {
 
-		} else if($_POST[self::$name] == 'Admin') {
-
-			return 'User exists, pick another username.';
+				return 'User exists, pick another username.';
 
 		} else {
-		
-			return '';
+	
+			return 'Registered new user.';
+		}
 	}
-}
 
 
-	public function monkey() {
-		return '<h1>MONKEY!</h1>';
+	public function getCredentialsInRegisterForm() {
+		return new Credentials($this->getRequestUserNameFromRegistration(), $this->getRequestPasswordFromRegistration());
 	}
+
 }
