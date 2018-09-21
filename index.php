@@ -37,7 +37,6 @@ class MainController {
     public function run() {
         // if($this->loginView->isNavigatingToRegistration()) {
 
-            // var_dump($_GET);
             if ($this->loginView->isTryingToSignup()) {
                 $credentials = $this->loginView->getCredentialsInRegisterForm();
                 // debug_print_backtrace();

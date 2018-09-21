@@ -16,7 +16,8 @@ class LoginView {
 	// private static $signupForm = "LoginView::Signup";
 	// private static $password2 = "LoginView::PasswordRepeat";
 	// private static $loginForm = "LoginView::LoginForm";
-
+	
+	private static $signupForm = "register";
     private static $login = 'LoginView::Login';
     private static $logout = 'LoginView::Logout';
     private static $name = 'LoginView::UserName';
@@ -115,7 +116,7 @@ class LoginView {
 
 	public function isNavigatingToRegistration() : 	bool { return isset($_GET[self::$signupForm]); }
 
-	public function isNavigatingToLogin() : 	bool { return isset($_POST[self::$loginForm]); }
+	public function isNavigatingToLogin() : 	bool { return isset($_GET[self::$loginForm]); }
 
 
 	public function isTryingToSignup() : bool { return isset($_POST[self::$submitSignup]); }
@@ -185,9 +186,8 @@ class LoginView {
 	private static $registerPassword = 'RegisterView::Password';
 
 	private static $submitSignup = "RegisterView::SubmitSignup";
-	private static $signupForm = "RegisterView::Signup";
 	private static $passwordRepeat = "RegisterView::PasswordRepeat";
-	private static $loginForm = "RegisterView::LoginForm";
+	private static $loginForm = "login";
 	private static $registerMessageId = 'RegisterView::Message';
 
 	public function registrationView($message) {
