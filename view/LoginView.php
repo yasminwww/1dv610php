@@ -60,20 +60,14 @@ class LoginView {
 
 				return $this->generateLogoutButtonHTML('Welcome');
 
-
 			} else {
 
 				// echo '3';
 				return  $this->generateLoginFormHTML($this->validationMessageLogin());
 			}
-			// if(isset($_POST[self::$logout])) {
-			// 	echo 'hihi';
-
-			// 	return session_destroy();
-			// }
 			
 		} else {
-			session_destroy();			
+			// session_destroy();			
 			// echo '4';
 			return $this->generateLoginFormHTML('');
 		}
@@ -174,6 +168,10 @@ class LoginView {
 		}
 	}
 
+    public function killSession() {
+       	return session_destroy();
+	}
+	
 	public function getCredentialsInForm() {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
 	}

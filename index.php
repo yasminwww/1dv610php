@@ -59,14 +59,23 @@ class MainController {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
                 // echo $_SESSION['username'];
-            } else {
-            }
+            //   if ($this->loginView->isLoggingOut()) {
+            //         echo 'logoutbutton';
+            //     return $this->loginView->generateLogoutButtonHTML('Bye bye!');
+
+            // }
             
-        } else {
-            
-        }
+        } 
+    }
+    if ($this->loginView->isLoggingOut()) {
+        $this->killSession();
+        return $this->layoutView->render(false, $this->loginView, $this->timeView);        
+
+    } else {
+
         $this->renderHTML();
     }
+}
 
     private function renderHTML() {
         $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
@@ -82,4 +91,3 @@ $controller = new MainController();
 
 $controller->run(); //renderHTML();
 
-// push
