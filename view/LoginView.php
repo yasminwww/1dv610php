@@ -44,8 +44,11 @@ class LoginView {
 	public function response() {
 		
 		//START:
+		if ($this->isLoggingOut()) {
+		///	session_destroy();
+			return  $this->generateLoginFormHTML('Bye bye!');
 
-		if ($this->isNavigatingToRegistration()) {
+		} else if ($this->isNavigatingToRegistration()) {
 			
 			// echo '1';
 			return $this->registrationView('');
@@ -57,6 +60,7 @@ class LoginView {
 
 		} else if ($this->isTryingToLogin()) {
 
+
 			if ($this->isAuthorised() && !isset($_SESSION['already-loggedin']))  {
 
 				$_SESSION['already-loggedin'] = true;
@@ -66,13 +70,17 @@ class LoginView {
 			} else if  ($this->isAuthorised() && isset($_SESSION['already-loggedin'])) {
 
 				return $this->generateLogoutButtonHTML('');
-				
+
 			} else {
 
 				// echo '3';
 				return  $this->generateLoginFormHTML($this->validationMessageLogin());
 			}
 			
+		} else if ($this->isAuthorised()) {
+
+			return $this->generateLogoutButtonHTML('');
+
 		} else {
 			// session_destroy();			
 			// echo '4';
@@ -121,8 +129,6 @@ class LoginView {
     }
 
 	public function isNavigatingToRegistration() : 	bool { return isset($_GET[self::$signupForm]); }
-
-	public function rumpa() : 	bool { return isset($_SESSION['username']); }
 
 
 	public function isNavigatingToLogin() : 	bool { return isset($_GET[self::$loginForm]); }

@@ -9,12 +9,19 @@ require_once('database.php');
 require_once('model/user_model.php');
 
     //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
-    error_reporting(E_ALL);
-    ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
 session_start();
 
-class MainController {
+function abc()
+{
+    echo 'Indenture';
+}
+
+
+class MainController
+{
 
     private $layoutView;
     private $loginView;
@@ -25,7 +32,8 @@ class MainController {
     private $database;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
@@ -34,17 +42,17 @@ class MainController {
         // $this->database = new Database();
     }
 
-    public function run() {
+    public function run()
+    {
         // if($this->loginView->isNavigatingToRegistration()) {
-
-            if ($this->loginView->isTryingToSignup()) {
-                $credentials = $this->loginView->getCredentialsInRegisterForm();
+        if ($this->loginView->isTryingToSignup()) {
+            $credentials = $this->loginView->getCredentialsInRegisterForm();
                 // debug_print_backtrace();
-                if($credentials->username >=3 && $credentials->password >=6) {
-                    $_SESSION['username'] = $credentials->username;
-                    $_SESSION['password'] = $credentials->password;
-                    echo $_SESSION['username'];
-                }
+            if ($credentials->username >= 3 && $credentials->password >= 6) {
+                $_SESSION['username'] = $credentials->username;
+                $_SESSION['password'] = $credentials->password;
+                    //echo $_SESSION['username'];
+            }
         // }
 
 
@@ -64,25 +72,25 @@ class MainController {
             //     return $this->loginView->generateLogoutButtonHTML('Bye bye!');
 
             // }
-            
-        } 
-    }
-    if ($this->loginView->isLoggingOut()) {
-        $this->killSession();
-        $_SESSION['message'] = 'Bye bye!';
-        return $this->layoutView->render(false, $this->loginView, $this->timeView);        
 
-    } else {
+            }
+        } else if ($this->loginView->isLoggingOut()) {
+            $this->killSession();
+            $this->layoutView->render(false, $this->loginView, $this->timeView);
+            return;
+        }
 
+    
         $this->renderHTML();
     }
-}
 
-    private function renderHTML() {
+    private function renderHTML()
+    {
         $this->layoutView->render($this->loginView->isAuthorised(), $this->loginView, $this->timeView);
     }
 
-    public function killSession() {
+    public function killSession()
+    {
         session_destroy();
     }
 }
