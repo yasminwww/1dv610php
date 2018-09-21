@@ -44,21 +44,30 @@ class LoginView {
 	public function response() {
 		
 		//START:
+
 		if ($this->isLoggingOut()) {
 		///	session_destroy();
 			return  $this->generateLoginFormHTML('Bye bye!');
 
-		} else if ($this->isNavigatingToRegistration()) {
+		}
+
+		if ($this->isTryingToSignup()) {
+			 
+			// echo '2';
+		   return $this->registrationView($this->validationMessageRegister());
+
+	   }
+		
+		if ($this->isNavigatingToRegistration()) {
 			
 			// echo '1';
 			return $this->registrationView('');
 			
- 		} else if ($this->isTryingToSignup()) {
-			 
-			//  echo '2';
-			return $this->registrationView($this->validationMessageRegister());
+		 }
+		 
 
-		} else if ($this->isTryingToLogin()) {
+		
+		if ($this->isTryingToLogin()) {
 
 
 			if ($this->isAuthorised() && !isset($_SESSION['already-loggedin']))  {
@@ -135,6 +144,7 @@ class LoginView {
 
 
 	public function isTryingToSignup() : bool { return isset($_POST[self::$submitSignup]); }
+
 	public function isTryingToLogin() 	 : 	bool { return isset($_POST[self::$login]); }
 
 	public function isLoggingOut() : bool { return isset($_POST[self::$logout]) && $this->isAuthorised(); }
@@ -215,7 +225,7 @@ class LoginView {
 						<p id="' . self::$registerMessageId . '">' . $message . '</p>
 						
 						<label for="' . self::$registerName . '">Username :</label>
-						<input type="text" id="' . self::$registerName . '" name="' . self::$registerName . '" value="' . $this->getRequestUserName() . '" />
+						<input type="text" id="' . self::$registerName . '" name="' . self::$registerName . '" value="' . $this->getRequestUserNameFromRegistration() . '" />
 						<label for="' . self::$registerPassword . '">Password :</label>
 						<input type="password" id="' . self::$registerPassword . '" name="' . self::$registerPassword . '" />
 						<label for="' . self::$passwordRepeat . '">Repeat Password :</label>
