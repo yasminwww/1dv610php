@@ -224,7 +224,7 @@ class LoginView {
 						<p id="' . self::$registerMessageId . '">' . $message . '</p>
 						
 						<label for="' . self::$registerName . '">Username :</label>
-						<input type="text" id="' . self::$registerName . '" name="' . self::$registerName . '" value="' . $this->getRequestUserNameFromRegistration() . '" />
+						<input type="text" id="' . self::$registerName . '" name="' . self::$registerName . '" value="' . strip_tags($this->getRequestUserNameFromRegistration()) . '" />
 						<label for="' . self::$registerPassword . '">Password :</label>
 						<input type="password" id="' . self::$registerPassword . '" name="' . self::$registerPassword . '" />
 						<label for="' . self::$passwordRepeat . '">Repeat Password :</label>
@@ -259,6 +259,9 @@ class LoginView {
 
 
 	public function validationMessageRegister() : string {
+		if (!ctype_alnum($this->getRequestUserNameFromRegistration())) {
+			return 'Username contains invalid characters.';
+		 }
 
 		if ($this->isUsernameTooShort() && $this->isPasswordTooShort()) {
 			return 'Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.';
