@@ -1,10 +1,9 @@
 <?php
 
 //INCLUDE THE FILES NEEDED...
-require_once('view/LayoutView.php');
-require_once('view/RegisterView.php');
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
+require_once('view/LayoutView.php');
 require_once('database.php');
 require_once('model/user_model.php');
 
@@ -19,17 +18,14 @@ class MainController {
     private $layoutView;
     private $loginView;
     private $timeView;
-    // private $reqisterView;
 
     private $database;
 
 
     public function __construct() {
         $this->layoutView = new LayoutView();
-        // $this->reqisterView = new RegisterView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
-
 
         // $this->database = new Database();
     }
@@ -41,13 +37,9 @@ class MainController {
             $credentials = $this->loginView->getCredentialsInForm();
             // debug_print_backtrace();
             if($credentials->username >=3 && $credentials->password >=6) {
-
-                if ($credentials->username != $this->loginView->correctCredentials->username) {
-                    $_SESSION['username'] = $credentials->username;
-                    $_SESSION['password'] = $credentials->password;
-                    // echo $_SESSION['username'];
-                }
-                
+                $_SESSION['username'] = $credentials->username;
+                $_SESSION['password'] = $credentials->password;
+                // echo $_SESSION['username'];
             }
 
 
@@ -56,8 +48,7 @@ class MainController {
 
             $credentials = $this->loginView->getCredentialsInForm();
 
-            if ($credentials->username == $this->loginView->correctCredentials->username &&
-                $credentials->password == $this->loginView->correctCredentials->password) {
+            if($credentials->username == 'Admin' && $credentials->password == 'Admin') {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
                 // echo $_SESSION['username'];
