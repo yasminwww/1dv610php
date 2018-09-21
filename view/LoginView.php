@@ -137,7 +137,7 @@ class LoginView {
 	public function isTryingToSignup() : bool { return isset($_POST[self::$submitSignup]); }
 	public function isTryingToLogin() 	 : 	bool { return isset($_POST[self::$login]); }
 
-	public function isLoggingOut() : bool { return isset($_POST[self::$logout]); }
+	public function isLoggingOut() : bool { return isset($_POST[self::$logout]) && $this->isAuthorised(); }
 
 	public function getRequestUserName() { 
 		if (isset($_POST[self::$name])) {
