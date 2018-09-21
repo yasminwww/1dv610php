@@ -65,7 +65,6 @@ class LoginView {
 			
 		 }
 		 
-
 		
 		if ($this->isTryingToLogin()) {
 
@@ -275,7 +274,7 @@ class LoginView {
 
 			else if($this->getRequestPasswordFromRegistration() != $_POST[self::$passwordRepeat]) {
 
-				return 'Password does not match';
+				return 'Passwords do not match.';
 		// TODO currently correctC does not work
 			} else if($this->getRequestUserNameFromRegistration() == $this->correctCredentials->username) {
 
@@ -287,6 +286,9 @@ class LoginView {
 		}
 	}
 
+
+
+	///
 
 	public function getCredentialsInRegisterForm() {
 		return new Credentials($this->getRequestUserNameFromRegistration(), $this->getRequestPasswordFromRegistration());
