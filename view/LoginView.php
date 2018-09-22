@@ -52,9 +52,14 @@ class LoginView {
 		}
 
 		if ($this->isTryingToSignup()) {
-			 
-			// echo '2';
-		   return $this->registrationView($this->validationMessageRegister());
+			 if($this->validationMessageRegister() == 'Registered new user.') {
+
+				return $this->generateLoginFormHTML($this->validationMessageRegister());
+
+			 } else{
+
+				return $this->registrationView($this->validationMessageRegister());
+			}
 
 	   }
 		
@@ -80,7 +85,7 @@ class LoginView {
 				return $this->generateLogoutButtonHTML('');
 
 			} else {
-
+			
 				// echo '3';
 				return  $this->generateLoginFormHTML($this->validationMessageLogin());
 			}
@@ -90,7 +95,7 @@ class LoginView {
 			return $this->generateLogoutButtonHTML('');
 
 		} else {
-			// session_destroy();			
+
 			// echo '4';
 			return $this->generateLoginFormHTML('');
 		}
@@ -202,7 +207,7 @@ class LoginView {
 	}
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// - Registration View - //////////////////////////////////////////////
 
 
 	
@@ -278,7 +283,7 @@ class LoginView {
 			else if($this->getRequestPasswordFromRegistration() != $_POST[self::$passwordRepeat]) {
 
 				return 'Passwords do not match.';
-		// TODO currently correctC does not work
+
 			} else if($this->getRequestUserNameFromRegistration() == $this->correctCredentials->username) {
 
 				return 'User exists, pick another username.';
@@ -290,8 +295,6 @@ class LoginView {
 	}
 
 
-
-	///
 
 	public function getCredentialsInRegisterForm() {
 		return new Credentials($this->getRequestUserNameFromRegistration(), $this->getRequestPasswordFromRegistration());
