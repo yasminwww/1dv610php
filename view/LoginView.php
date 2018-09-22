@@ -259,7 +259,7 @@ class LoginView {
 
 
 	public function validationMessageRegister() : string {
-		if (!ctype_alnum($this->getRequestUserNameFromRegistration())) {
+		if (!ctype_alnum($this->getRequestUserNameFromRegistration()) && !empty($this->getRequestUserNameFromRegistration())) {
 			return 'Username contains invalid characters.';
 		 }
 
