@@ -34,7 +34,6 @@ class LoginView {
 
    }
 
-
 	public function response() {
 		
 		//START:
