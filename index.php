@@ -10,14 +10,11 @@ require_once('database.php');
 require_once('model/UserModel.php');
 
 
-    //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
+//MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 session_start();
-
-
-
 
 $controller = new MainController();
 $controller->run(); //renderHTML();
