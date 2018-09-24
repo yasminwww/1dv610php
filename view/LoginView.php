@@ -35,8 +35,6 @@ class LoginView {
    }
 
 
-
-
 	public function response() {
 		
 		//START:
@@ -48,13 +46,15 @@ class LoginView {
 		}
 
 		if ($this->isTryingToSignup()) {
+			// echo "heyyyyyyyyyyyyyy1";
 			 if($this->validationMessageRegister() == 'Registered new user.') {
 
 				return $this->generateLoginFormHTML($this->validationMessageRegister());
 
-			 } else{
-
+			 } else {
+				 
 				return $this->registrationView($this->validationMessageRegister());
+
 			}
 
 	   }
@@ -257,28 +257,28 @@ class LoginView {
 
 	public function validationMessageRegister() : string {
 		if (!ctype_alnum($this->getRequestUserNameFromRegistration()) && !empty($this->getRequestUserNameFromRegistration())) {
-			return 'Username contains invalid characters.' && false;
+			return 'Username contains invalid characters.';
 		 }
 
 		if ($this->isUsernameTooShort() && $this->isPasswordTooShort()) {
-			return 'Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.' && false;
+			return 'Username has too few characters, at least 3 characters. Password has too few characters, at least 6 characters.';
 		}
 
 		if ($this->isUsernameTooShort()) {
-			return 'Username has too few characters, at least 3 characters.' && false;
+			return 'Username has too few characters, at least 3 characters.';
 		}
 		
 		if ($this->isPasswordTooShort()) {
-			return ' Password has too few characters, at least 6 characters.' && false;
+			return ' Password has too few characters, at least 6 characters.';
 		}
 
 			else if($this->getRequestPasswordFromRegistration() != $_POST[self::$passwordRepeat]) {
 
-				return 'Passwords do not match.' && false;
+				return 'Passwords do not match.';
 
 			} else if($this->getRequestUserNameFromRegistration() == $this->correctCredentials->username) {
 
-				return 'User exists, pick another username.' && false;
+				return 'User exists, pick another username.';
 
 		} else {
 	
