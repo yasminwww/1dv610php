@@ -278,7 +278,7 @@ class LoginView {
 
 			} else if($this->getRequestUserNameFromRegistration() == $this->correctCredentials->username) {
 
-				return 'User exists, pick another username.';
+				return 'User exists, pick another username.' && false;
 
 		} else {
 	
