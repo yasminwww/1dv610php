@@ -200,7 +200,7 @@ class LoginView {
 
 
 ////////////////////////////////// - Registration View - //////////////////////////////////////////////
-
+/////
 
 	
 	private static $registerName = 'RegisterView::UserName';
