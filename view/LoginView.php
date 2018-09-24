@@ -46,13 +46,13 @@ class LoginView {
 		}
 
 		if ($this->isTryingToSignup()) {
-			// echo "heyyyyyyyyyyyyyy1";
+
 			 if($this->validationMessageRegister() == 'Registered new user.') {
 
 				return $this->generateLoginFormHTML($this->validationMessageRegister());
 
 			 } else {
-				 
+
 				return $this->registrationView($this->validationMessageRegister());
 
 			}
@@ -206,7 +206,7 @@ class LoginView {
 	private static $registerName = 'RegisterView::UserName';
 	private static $registerPassword = 'RegisterView::Password';
 
-	private static $submitSignup = "RegisterView::SubmitSignup";
+	private static $submitSignup = "Register";
 	private static $passwordRepeat = "RegisterView::PasswordRepeat";
 	private static $loginForm = "login";
 	private static $registerMessageId = 'RegisterView::Message';
