@@ -8,7 +8,7 @@ class MainController
     private $loginView;
     private $timeView;
 
-    // private $registerView;
+    private $registerView;
 
 
     private $database;
@@ -19,16 +19,15 @@ class MainController
         $this->layoutView = new LayoutView();
         $this->loginView = new LoginView();
         $this->timeView = new DateTimeView();
-
-        // $this->registerView = new RegisterView();
+        $this->registerView = new RegisterView();
         // $this->database = new Database();
     }
 
     public function run()
     {
         // if($this->loginView->isNavigatingToRegistration()) {
-        if ($this->loginView->isTryingToSignup()) {
-            $credentials = $this->loginView->getCredentialsInRegisterForm();
+        if ($this->registerView->isTryingToSignup()) {
+            $credentials = $this->registerView->getCredentialsInRegisterForm();
                 // debug_print_backtrace();
             if ($credentials->username >= 3 && $credentials->password >= 6) {
                 $_SESSION['username'] = $credentials->username;
@@ -47,11 +46,15 @@ class MainController
                 $credentials->password == $this->loginView->correctCredentials->password) {
                 $_SESSION['username'] = $credentials->username;
                 $_SESSION['password'] = $credentials->password;
-                $_SESSION['message'] = 'Welcome';
+
+                if($this->loginView->keepMeLoggedIn()) {
+                    $this->setCookie();
+                    // echo $_COOKIE[$cookie];
+                }
+                // $_SESSION['message'] = 'Welcome';
                 // echo $_SESSION['username'];
 
             // }
-
             }
         } else if ($this->loginView->isLoggingOut()) {
             $this->killSession();
@@ -59,7 +62,7 @@ class MainController
             return;
         }
 
-    
+
         $this->renderHTML();
     }
 
@@ -72,5 +75,13 @@ class MainController
     {
         session_destroy();
     }
+
+    public function setCookie()
+    {   
+        $cookie = 'user';
+        setcookie($cookie, rand(1, 100000), time() + (86400 * 30));
+    }
 }
+
+
 
