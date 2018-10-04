@@ -27,7 +27,7 @@ class LoginView
 
 	public function response() {
 		
-		// Changing view depenting on bool
+		// Only changing view depending on bool
 
 		if ($this->isLoggingOut()) {
 			return $this->generateLoginFormHTML('Bye bye!');
