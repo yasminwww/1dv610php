@@ -7,7 +7,6 @@ require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
 require_once('view/RegisterView.php');
 require_once('model/Credentials.php');
-
 require_once('database.php');
 require_once('model/UserModel.php');
 

@@ -19,17 +19,15 @@ class LoginView
 	public $registerView;
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->registerView = new RegisterView();
 		$this->correctCredentials = new Credentials('Admin', 'Password');
 
 	}
 
-	public function response()
-	{
+	public function response() {
 		
-		//START:
+		// Changing view depenting on bool
 
 		if ($this->isLoggingOut()) {
 			return $this->generateLoginFormHTML('Bye bye!');
@@ -78,8 +76,7 @@ class LoginView
 	 * @param $message, String output message
 	 * @return  void, BUT writes to standard output!
 	 */
-	public function generateLogoutButtonHTML($message)
-	{
+	public function generateLogoutButtonHTML($message) {
 		return '
 		<form method="post">
 			<p id="' . self::$messageId . '">' . $message . '</p>
@@ -94,8 +91,7 @@ class LoginView
 	 * @param $message, String output message
 	 * @return  void, BUT writes to standard output!
 	 */
-	public function generateLoginFormHTML($message)
-	{
+	public function generateLoginFormHTML($message) {
 
 		return ' 
 		<a href="?' . self::$signupForm . '">Register a new user</a>
@@ -115,8 +111,7 @@ class LoginView
 		';
 	}
 	
-	public function validationMessageLogin() : string
-	{
+	public function validationMessageLogin() : string {
 
 		if (empty($this->getRequestUserName())) {
 			return 'Username is missing';
@@ -133,56 +128,48 @@ class LoginView
 		}
 	}
 
-	public function isNavigatingToRegistration() : bool
-	{
+	public function isNavigatingToRegistration() : bool {
 		return isset($_GET[self::$signupForm]);
 	}
 
 
-	public function isNavigatingToLogin() : bool
-	{
+	public function isNavigatingToLogin() : bool {
 		return isset($_GET[self::$loginForm]);
 	}
 
 
-	public function isTryingToLogin() : bool
-	{
+	public function isTryingToLogin() : bool {
 		return isset($_POST[self::$login]);
 	}
-	public function keepMeLoggedIn() : bool
-	{
+	// Not using yet
+	public function iskeepMeLoggedIn() : bool {
 		return isset($_POST[self::$keep]);
 	}
 
 
-	public function isLoggingOut() : bool
-	{
+	public function isLoggingOut() : bool {
 		return isset($_POST[self::$logout]) && $this->isAuthorised();
 	}
 
-	public function getRequestUserName()
-	{
+	public function getRequestUserName() {
 		if (isset($_POST[self::$name])) {
 			return $_POST[self::$name];
 		}
 	}
 
-	public function getRequestPassword()
-	{
+	public function getRequestPassword() {
 		if (isset($_POST[self::$password])) {
 			return $_POST[self::$password];
 		}
 	}
 
-	public function isAuthorised() : bool
-	{
+	public function isAuthorised() : bool {
 		$correct = $this->correctCredentials;
 		return isset($_SESSION['username']) && $_SESSION['username'] == $correct->username &&
 			   isset($_SESSION['password']) && $_SESSION['password'] == $correct->password;
 	}
 
-	public function getCredentialsInForm()
-	{
+	public function getCredentialsInForm() {
 		return new Credentials($this->getRequestUserName(), $this->getRequestPassword());
 	}
 

@@ -11,8 +11,7 @@ class RegisterView {
 	private static $loginForm = "login";
 	private static $registerMessageId = 'RegisterView::Message';
 
-	public function registrationView($message)
-	{
+	public function registrationView($message) {
 
 		return '
 		<a href="?' . self::$loginForm . '">Back to login</a>
@@ -32,40 +31,34 @@ class RegisterView {
                 </form>';
 	}
 	
-	public function isTryingToSignup() : bool
-	{
+	public function isTryingToSignup() : bool {
 		return isset($_POST[self::$submitSignup]);
 	}
 
-	public function getRequestUserNameFromRegistration()
-	{
+	public function getRequestUserNameFromRegistration() {
 
 		if (isset($_POST[self::$registerName])) {
 			return $_POST[self::$registerName];
 		}
 	}
 
-	public function getRequestPasswordFromRegistration()
-	{
+	public function getRequestPasswordFromRegistration() {
 		if (isset($_POST[self::$registerPassword])) {
 			return $_POST[self::$registerPassword];
 		}
 	}
 
 
-	public function isUsernameTooShort() : bool
-	{
+	public function isUsernameTooShort() : bool {
 		return strlen($this->getRequestUserNameFromRegistration()) < 3;
 	}
 
-	public function isPasswordTooShort() : bool
-	{
+	public function isPasswordTooShort() : bool {
 		return strlen($this->getRequestPasswordFromRegistration()) < 6;
 	}
 
 
-	public function validationMessageRegister() : string
-	{
+	public function validationMessageRegister() : string {
 		if (!ctype_alnum($this->getRequestUserNameFromRegistration()) && !empty($this->getRequestUserNameFromRegistration())) {
 			return 'Username contains invalid characters.';
 		}
@@ -95,8 +88,7 @@ class RegisterView {
 	}
 
 
-	public function getCredentialsInRegisterForm()
-	{
+	public function getCredentialsInRegisterForm() {
 		return new Credentials($this->getRequestUserNameFromRegistration(), $this->getRequestPasswordFromRegistration());
 	}
 
