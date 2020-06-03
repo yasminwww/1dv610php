@@ -3,13 +3,10 @@
 
 class MainController
 {
-
     private $layoutView;
     private $loginView;
     private $timeView;
-
     private $registerView;
-
 
     private $database;
 
