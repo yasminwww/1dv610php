@@ -11,20 +11,20 @@ class AuthController {
          $this->database = $database;
      }
 
-    // OM SIGNUP KNAPPEN HAR BLIVIT TRYCKT
+    // IF SIGNUP BUTTON HAS BEEN PUSHED
     public function register() {
         if($this->view->checkRegistrationForm()) {
             $username = $this->view->getRequestUserName();
             $password = $this->view->getRequestPassword();
     
-            // IF validation from  model-database is true,!!
+            // IF validation from  model-database is true
                 $user = new User($username, $password);
                 $user->saveUser($this->database);
                 $person = $user->getUsername();
                 return $this->view->monkey();
         }
     }
-// Kolla om funtionerna är 
+
     public function login() {
         if($this->view->checkLoginForm()) {
 
@@ -32,12 +32,12 @@ class AuthController {
             $password = $this->view->getRequestPassword();
         
             if($username == 'Admin' && $password == 'Admin') {
-                // echo $username;
+       
                 $_SESSION['username'] = $username;
                 echo $_SESSION['username'];
             } 
              else if(empty($username)) {
-                // echo 'Username missing';
+  
              $this->view->errorMessage('Username is missing.');
 
             }
